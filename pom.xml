@@ -26,7 +26,7 @@
         <maven.compiler.source>1.9</maven.compiler.source>
         <maven.compiler.target>1.9</maven.compiler.target>
     </properties>
-    
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -34,8 +34,28 @@
                 <artifactId>shadedlibgdx</artifactId>
                 <version>1.0.1-SNAPSHOT</version>
             </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>5.3.20</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>5.3.20</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-beans</artifactId>
+                <version>5.3.20</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-aop</artifactId>
+                <version>5.3.20</version>
+            </dependency>
         </dependencies>
-    </dependencyManagement>    
+    </dependencyManagement>
     <build>
         <plugins>
             <plugin>
@@ -67,10 +87,9 @@
                     <workingDirectory>.</workingDirectory>
                     <longModulepath>false</longModulepath>
                     <arguments>
-<!--                        
-                        On Mac Devices this line should not be commented out
+
                         <argument>-XstartOnFirstThread</argument>
--->
+
                         <argument>-Dorg.lwjgl.util.Debug=true</argument>
                         <argument>-Djava.library.path=libs</argument>
                         <argument>--module-path=mods-mvn</argument>

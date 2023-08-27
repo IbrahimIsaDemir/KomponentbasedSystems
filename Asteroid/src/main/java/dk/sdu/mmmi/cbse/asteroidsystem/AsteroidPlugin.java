@@ -2,6 +2,7 @@ package dk.sdu.mmmi.cbse.asteroidsystem;
 
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
+import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
@@ -26,7 +27,9 @@ public class AsteroidPlugin implements IGamePluginService {
             asteroidSize = AsteroidSizes.BIG;
         }
 
-        world.addEntity(createAsteroid(radian, positionPart, asteroidSize.getSize()));
+        Asteroid asteroid = createAsteroid(radian, positionPart, asteroidSize.getSize());
+        asteroid.setUntouchable(2000);
+        world.addEntity(asteroid);
         positionPart = null;
         asteroidSize = null;
     }
@@ -51,10 +54,10 @@ public class AsteroidPlugin implements IGamePluginService {
             asteroid.setLife(3);
         }
         else if (asteroidSize == AsteroidSizes.MEDIUM.getSize()){
-            asteroid.setLife(2);
+            asteroid.setLife(3);
         }
         else if(asteroidSize == AsteroidSizes.SMALL.getSize()){
-            asteroid.setLife(1);
+            asteroid.setLife(3);
         }
 
 

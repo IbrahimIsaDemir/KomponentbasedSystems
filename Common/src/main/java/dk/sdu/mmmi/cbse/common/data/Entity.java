@@ -19,6 +19,8 @@ public class Entity implements Serializable {
     private boolean untouchable;
     private String shape;
 
+    private long untouchableTime;
+
     public String getShape() {
         return shape;
     }
@@ -106,14 +108,17 @@ public class Entity implements Serializable {
     }
 
     public void setHit(boolean hit) {
+
+
         this.hit = hit;
     }
 
     public boolean isUntouchable() {
-        return untouchable;
+
+        return System.currentTimeMillis()< untouchableTime + 4000;
     }
 
-    public void setUntouchable(boolean untouchable) {
-        this.untouchable = untouchable;
+    public void setUntouchable(long timeout) {
+        this.untouchableTime = System.currentTimeMillis();
     }
 }

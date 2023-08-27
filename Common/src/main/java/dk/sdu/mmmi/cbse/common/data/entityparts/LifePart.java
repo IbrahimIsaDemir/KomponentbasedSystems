@@ -17,6 +17,8 @@ public class LifePart implements EntityPart {
     private int life;
     private boolean isHit = false;
     private float expiration;
+    private boolean dead = false;
+
 
     public LifePart(int life, float expiration) {
         this.life = life;
@@ -50,9 +52,18 @@ public class LifePart implements EntityPart {
     public void reduceExpiration(float delta){
         this.expiration -= delta;
     }
-    
+    public boolean isDead() {
+        return dead;
+    }
+
     @Override
     public void process(GameData gameData, Entity entity) {
-        
+        if (isHit) {
+            life = - 1;
+            isHit = false;
+        }
+        if (life <= 0) {
+            dead = true;
+        }
     }
 }

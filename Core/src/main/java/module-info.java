@@ -1,6 +1,7 @@
 module Core {
-    requires Common;
     requires java.desktop;
+    requires jdk.unsupported;
+    requires Common;
     requires com.badlogic.gdx;
     requires spring.context;
     requires spring.core;

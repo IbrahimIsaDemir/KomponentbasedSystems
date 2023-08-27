@@ -32,6 +32,8 @@ public class AsteroidControlSystem implements IEntityProcessingService {
 
             if(asteroid.isHit()){
 
+                asteroid.setUntouchable(2000);
+
                 if(asteroid.getRadius() == AsteroidSizes.BIG.getSize()){
                     asteroid.setRadius(AsteroidSizes.MEDIUM.getSize());
                     asteroidPlugin.setAsteroidSize(AsteroidSizes.MEDIUM);

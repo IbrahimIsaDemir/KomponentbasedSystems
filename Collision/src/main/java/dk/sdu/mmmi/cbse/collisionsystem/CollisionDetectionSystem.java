@@ -3,6 +3,7 @@ package dk.sdu.mmmi.cbse.collisionsystem;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
+import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.ShootingPart;
 import dk.sdu.mmmi.cbse.common.services.IPostEntityProcessingService;
@@ -15,59 +16,48 @@ public class CollisionDetectionSystem implements IPostEntityProcessingService {
     @Override
     public void process(GameData gameData, World world) {
 
-        for (Entity entity1 : world.getEntities()) {
+        for (Entity entity : world.getEntities()) {
+            if(entity.isUntouchable()) continue;
 
-            for (Entity entity2 : world.getEntities()) {
-                if (entity2 == entity1) {
+            for (Entity collisionDetection : world.getEntities()) {
+                // get life parts on all entities
+
+                // if the two entities are identical, skip the iteration
+                if (entity.getID().equals(collisionDetection.getID())) {
                     continue;
-                }
-                if(entities.contains(entity2)){
-                    continue;
 
-                }
-               if(entity1.isUntouchable() || entity2.isUntouchable()){
-                    continue;
+                    // remove entities with zero in expiration
                 }
 
-               ShootingPart shootingPart1 = entity1.getPart(ShootingPart.class);
-               ShootingPart shootingPart2 = entity2.getPart(ShootingPart.class);
-               if(shootingPart1 != null ){
-                   if(shootingPart1.isShoot()){
-                       continue;
-                   }
-               }
-
-               if(shootingPart2 != null){
-                   if(shootingPart2.isShoot()){
-                       continue;
-                   }
-               }
-
-
-                PositionPart positionPart1 = entity1.getPart(PositionPart.class);
-                PositionPart positionPart2 = entity2.getPart(PositionPart.class);
-
-                float dx = positionPart1.getX() - positionPart2.getX();
-                float dy = positionPart1.getY() - positionPart2.getY();
-
-                double distance = Math.sqrt(dx*dx+dy*dy);
-
-                float combinedRadius = entity1.getRadius() + entity2.getRadius();
-
-                if(distance < combinedRadius){
-
-                    System.out.println("Distance " + distance);
-                    System.out.println("combinedRadius " + combinedRadius );
-                    System.out.println("collision");
-                    CollisionEvent collisionEvent = new CollisionEvent(entity1,entity2);
-                    world.addEvent(collisionEvent);
+                // CollisionDetection
+                if (this.collides(entity, collisionDetection)) {
+                    // if entity has been hit, and should have its life reduced
+                    if (entity.getLife() > 0) {
+                        entity.reduceLife(collisionDetection.getDamageFactor());
+                        entity.setHit(true);
+                        // if entity is out of life - remove
+                        if (entity.getLife() <= 0) {
+                            world.removeEntity(entity);
+                        }
+                    }
                 }
-                entities.add(entity1);
-
-
             }
         }
-
-        entities.clear();
     }
+
+    public Boolean collides(Entity entity, Entity entity2) {
+        PositionPart entMov = entity.getPart(PositionPart.class);
+        PositionPart entMov2 = entity2.getPart(PositionPart.class);
+        float dx = (float) entMov.getX() - (float) entMov2.getX();
+        float dy = (float) entMov.getY() - (float) entMov2.getY();
+        float distance = (float) Math.sqrt(dx * dx + dy * dy);
+        if (distance < (entity.getRadius() + entity2.getRadius())) {
+            return true;
+        }
+        return false;
+    }
+
+
+
+
 }

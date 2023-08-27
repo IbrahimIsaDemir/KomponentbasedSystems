@@ -7,9 +7,7 @@ import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.ShootingPart;
-import dk.sdu.mmmi.cbse.common.events.Event;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
-import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -124,6 +122,11 @@ public class EnemyControlSystem implements IEntityProcessingService {
             ShootingPart shootingPart = enemy.getPart(ShootingPart.class);
 
             shootingPart.setShoot(shotCounter % 100 == 0);
+
+            if(shootingPart.isShoot()){
+                enemy.setUntouchable(2000);
+            }
+
 
 
             if(moveCounter.size() == 4){

@@ -1,6 +1,5 @@
 package dk.sdu.mmmi.cbse.bulletsystem;
 
-import com.badlogic.gdx.math.MathUtils;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
@@ -14,12 +13,13 @@ public class BulletControlSystem implements IEntityProcessingService {
     public void process(GameData gameData, World world) {
 
 
-
+        System.out.println("bullet processing ongoing");
 
         for (Entity entity : world.getEntities(Bullet.class)) {
 
             Bullet bullet = (Bullet) entity;
 
+            System.out.println("BULLETS:" + world.getEntities(Bullet.class));
 
             PositionPart bulletPosition = bullet.getPart(PositionPart.class);
             if(bulletPosition.getX()> gameData.getDisplayWidth() ||
@@ -30,8 +30,8 @@ public class BulletControlSystem implements IEntityProcessingService {
             }else {
                 float bulletx = bulletPosition.getX();
                 float bullety = bulletPosition.getY();
-                bulletx += bullet.getSpeed() * MathUtils.cos(bulletPosition.getRadians()) * gameData.getDelta();
-                bullety += bullet.getSpeed() * MathUtils.sin(bulletPosition.getRadians()) * gameData.getDelta();
+                bulletx += (float) (bullet.getSpeed() * Math.cos(bulletPosition.getRadians()) * gameData.getDelta());
+                bullety += (float) (bullet.getSpeed() * Math.sin(bulletPosition.getRadians()) * gameData.getDelta());
                 bulletPosition.setX(bulletx);
                 bulletPosition.setY(bullety);
             }

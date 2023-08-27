@@ -33,6 +33,13 @@ public class PlayerControlSystem implements IEntityProcessingService {
 
             shootingPart.setShoot(gameData.getKeys().isPressed(SPACE));
 
+            System.out.println(shootingPart.isShoot());
+            if(shootingPart.isShoot()){
+                player.setUntouchable(2000);
+            }
+
+
+
             movingPart.process(gameData, player);
             positionPart.process(gameData, player);
 

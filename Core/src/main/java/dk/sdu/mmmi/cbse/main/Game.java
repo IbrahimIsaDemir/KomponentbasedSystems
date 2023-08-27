@@ -32,11 +32,13 @@ public class Game
 
     private World world = new World();
 
-    public Game(List<IEntityProcessingService> entityProcessors, List<IGamePluginService> entityPlugins, List<IPostEntityProcessingService> postEntityProcessors) {
-        this.entityProcessors = entityProcessors;
-        this.entityPlugins = entityPlugins;
-        this.postEntityProcessors = postEntityProcessors;
-    }
+   public Game(List<IEntityProcessingService> entityProcessors, List<IGamePluginService> entityPlugins, List<IPostEntityProcessingService> postEntityProcessors) {
+       this.entityProcessors = entityProcessors;
+       this.entityPlugins = entityPlugins;
+       this.postEntityProcessors = postEntityProcessors;
+
+   }
+
 
     @Override
     public void create() {
@@ -54,8 +56,10 @@ public class Game
                 new GameInputProcessor(gameData)
         );
 
+
+
         // Lookup all Game Plugins using ServiceLoader
-        for (IGamePluginService iGamePlugin : getPluginServices()) {
+        for (IGamePluginService iGamePlugin : entityPlugins) {
             iGamePlugin.start(gameData, world);
         }
     }
@@ -78,14 +82,14 @@ public class Game
 
     private void update() {
         // Update
-        for (IEntityProcessingService entityProcessorService : getEntityProcessingServices()) {
+        for (IEntityProcessingService entityProcessorService : entityProcessors) {
             entityProcessorService.process(gameData, world);
         }
         //clear all handled events
         world.getEventList().clear();
 
         //Check for and create events for next loop
-        for (IPostEntityProcessingService postEntityProcessorService : getPostEntityProcessingServices()) {
+        for (IPostEntityProcessingService postEntityProcessorService : postEntityProcessors) {
             postEntityProcessorService.process(gameData, world);
         }
     }

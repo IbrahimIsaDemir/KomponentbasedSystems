@@ -3,6 +3,7 @@ package dk.sdu.mmmi.cbse.playersystem;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
+import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.ShootingPart;
@@ -37,9 +38,9 @@ public class PlayerPlugin implements IGamePluginService {
         playerShip.add(new ShootingPart(150));
         playerShip.add(new MovingPart(deacceleration, acceleration, maxSpeed, rotationSpeed));
         playerShip.add(new PositionPart(x, y, radians));
-        playerShip.setColor(new int[]{1,1,1});
-        playerShip.setDamageFactor(0);
         playerShip.setLife(3);
+        playerShip.setColor(new int[]{1,1,1});
+        playerShip.setDamageFactor(1);
         playerShip.setShape("Ship");
 
         float dx =  (float) (x + Math.cos(radians - 4 * 3.1415f / 5) * 10) - x;

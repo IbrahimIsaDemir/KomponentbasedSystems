@@ -8,7 +8,7 @@ import dk.sdu.mmmi.cbse.common.events.Event;
 import dk.sdu.mmmi.cbse.common.services.IPostEntityProcessingService;
 
 public class BulletEventSystem implements IPostEntityProcessingService {
-    private BulletPlugin bulletPlugin;
+    private BulletPlugin bulletPlugin = new BulletPlugin();
 
     @Override
     public void process(GameData gameData, World world) {
@@ -23,7 +23,6 @@ public class BulletEventSystem implements IPostEntityProcessingService {
                     world.addEvent(event);
                     System.out.println("shoot");
 
-                    bulletPlugin = new BulletPlugin();
                     bulletPlugin.start(gameData,world);
 
 
