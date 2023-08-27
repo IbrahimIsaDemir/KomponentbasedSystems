@@ -8,7 +8,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class Main {
 	
 	public static void main(String[] args) {
-		ApplicationContext context = new ClassPathXmlApplicationContext("/Beans-Core.xml");
+		ApplicationContext context =
+				new ClassPathXmlApplicationContext("/Beans-Core.xml");
 		Game game = (Game) context.getBean("game");
 
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
@@ -17,5 +18,6 @@ public class Main {
 
 		new Lwjgl3Application(game, config);
 	}
-	
+
+
 }

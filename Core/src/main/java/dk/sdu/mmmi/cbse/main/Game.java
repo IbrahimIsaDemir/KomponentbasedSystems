@@ -32,7 +32,9 @@ public class Game
 
     private World world = new World();
 
-   public Game(List<IEntityProcessingService> entityProcessors, List<IGamePluginService> entityPlugins, List<IPostEntityProcessingService> postEntityProcessors) {
+   public Game(List<IEntityProcessingService> entityProcessors,
+               List<IGamePluginService> entityPlugins,
+               List<IPostEntityProcessingService> postEntityProcessors) {
        this.entityProcessors = entityProcessors;
        this.entityPlugins = entityPlugins;
        this.postEntityProcessors = postEntityProcessors;
